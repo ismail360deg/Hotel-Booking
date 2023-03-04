@@ -1,0 +1,80 @@
+.banner{
+    position: relative;
+}
+.flying h3{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.flying{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 16px rgba(17, 34, 17, 0.05);
+    border-radius: 16px;
+    padding: 32px 24px;
+    position: absolute;
+    bottom: 30px;
+    left: 100px;
+}
+.input{
+    padding: 0px;
+    gap: 10px;
+    width: 240px;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #79747E;
+    border-radius: 4px;
+    outline: none;
+
+}
+.destination{
+    width: 416px;
+    height: 56px;
+    box-sizing: border-box;
+    border: 1px solid #79747E;
+    border-radius: 4px;
+    padding: 0px;
+    gap: 10px;
+    outline: none;
+    background: #FFFFFF;
+}
+.show__btn{
+    width: 142px;
+    height: 48px;
+    background: #8DD3BB;
+    border-radius: 4px;
+    border: none;
+    margin-left: 15px;
+}
+.promo__code{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* =========================== */
+.travel__card{
+    margin-top: 150px;
+    border: none !important;
+}
+.travel__card img{
+    position: relative;
+}
+.book{
+    position: absolute;
+    margin-top: -120px;
+    text-align: center;
+}
+
+.card-body button{
+    width: 248px;
+height: 48px;
+background: #8DD3BB;
+border-radius: 4px;
+border: none;
+margin-left: 30px;
+}
+.card-title{
+    color: #fff;
+}
+.card-text{
+    color: #fff;
+}
