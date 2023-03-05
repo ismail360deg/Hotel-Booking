@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const AllHotelListing = ({hotelName,setCategory}) => {
 
-    const {_id, country,title,city,price,avgRating,cafe,photo  } = hotelName;
+    const {country,title,city,price,avgRating,cafe,photo  } = hotelName;
 
   return (
     <div>
@@ -22,7 +22,7 @@ const AllHotelListing = ({hotelName,setCategory}) => {
                         </div>
                        </div>
                       
-                        <p class="card-text text">{city}</p>
+                        <p class="card-text text">{city}{country}</p>
                         <div className='d-flex justify-content-between mt-4'>
                         <p>{avgRating} 5star Hotel </p>
                         <h6>{cafe}+ Aminities</h6>
@@ -30,8 +30,8 @@ const AllHotelListing = ({hotelName,setCategory}) => {
                         <h5>Very Good 371 reviews</h5> 
                         <hr />
                        <div className='d-flex justify-content-between'>
-                       <p>love icon {country}</p>
-                       <Link to={`/hotelDetails/${_id}`}>
+                       <p>love icon </p>
+                       <Link to={`/category/${hotelName._id}`}>
                        <button className=''>View please</button>
                        </Link>
                        </div>

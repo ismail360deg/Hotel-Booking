@@ -6,7 +6,9 @@ import HotelDetails from '../Pages/Home/HotelDetails';
 import HotelListing from '../Pages/Home/HotelListing';
 import Main from '../Pages/Main/Main';
 
+
 export const router = createBrowserRouter([
+    
     {
         path: '/',
         element: <Main></Main>,
@@ -20,8 +22,9 @@ export const router = createBrowserRouter([
                 element: <HotelListing></HotelListing>
             },
             {
-                path: '/hotelDetails/:id',
-                element: <HotelDetails></HotelDetails>
+                path: '/category/:id',
+                element: <HotelDetails></HotelDetails>,
+                loader: async ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
             },
             
 
