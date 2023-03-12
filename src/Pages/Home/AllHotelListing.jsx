@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const AllHotelListing = ({hotelName,setCategory}) => {
+const AllHotelListing = ({hotelName,category}) => {
+  // console.log(category)
 
-    const {country,title,city,price,avgRating,cafe,photo  } = hotelName;
+    const {title,city,price,avgRating,cafe,photo  } = hotelName;
 
   return (
     <div>
@@ -22,7 +23,7 @@ const AllHotelListing = ({hotelName,setCategory}) => {
                         </div>
                        </div>
                       
-                        <p class="card-text text">{city}{country}</p>
+                        <p class="card-text text">{city}</p>
                         <div className='d-flex justify-content-between mt-4'>
                         <p>{avgRating} 5star Hotel </p>
                         <h6>{cafe}+ Aminities</h6>

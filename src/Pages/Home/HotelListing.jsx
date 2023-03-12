@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../Styles/HotelListing.css';
-import { FaSearch } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import AllHotelListing from './AllHotelListing';
+import SearchBar from '../SearchBar/SearchBar';
 // import hotelImg from '../../assets/images/hotel-img01.png';
 const HotelListing = () => {
 
@@ -20,6 +20,7 @@ const HotelListing = () => {
                 if (res.data) {
                   setHotelNames(res.data)
                 }
+                setCategory(res.data)
             })
             .catch(error => {
                 console.log(error)
@@ -29,27 +30,7 @@ const HotelListing = () => {
 
   return (
        <>
-        <section className='container flying__input'>
-          <div className="col-12 d-flex align-items-center justify-content-evenly">
-
-              <div className='input-container'>
-                <input type="text" id="form3Example1m" className="enter__destination" placeholder=" "/>
-              </div>
-              <div>
-                <input type="text" id="form3Example1m" className="input__box" placeholder=" "/>
-              </div>
-              <div>
-                <input type="text" id="form3Example1m" className="input__box" placeholder=" "/>
-              </div>
-              <div>
-                <input type="text" id="form3Example1m" className="input__box" placeholder=" "/>
-              </div>
-              <FaSearch className='search'></FaSearch>
-              </div>
-        </section>
-
-
-
+       <SearchBar></SearchBar>
 
         <section className='container mt-4'>
         <div className="row">
@@ -160,38 +141,11 @@ const HotelListing = () => {
                             hotelNames.map(hotelName => <AllHotelListing
                             key={hotelName._id}
                             hotelName={hotelName}
-                            setCategory={setCategory}
+                            category={category}
                             ></AllHotelListing>)
                           }
+                             {/* <SearchResult></SearchResult> */}
 
-
-
-                    {/* <div class="col-4">
-                      <img src={photo} class="img-fluid rounded-start" alt="..."/>
-                    </div>
-                    <div class="col-8">
-                      <div class="card-body hotel-list">
-                      
-                       <div>
-                       <div className='starting d-flex align-items-center justify-content-end'>
-                        <h5 class="card-title title">{title}</h5>
-                        <h6>starting from <br />${price}/night <br />excl.tax</h6>
-                        </div>
-                       </div>
-                      
-                        <p class="card-text text">{city}</p>
-                        <div className='d-flex justify-content-between mt-4'>
-                        <p>{avgRating} 5star Hotel </p>
-                        <h6>{cafe}+ Aminities</h6>
-                        </div>
-                        <h5>Very Good 371 reviews</h5> 
-                        <hr />
-                       <div className='d-flex justify-content-between'>
-                       <p>love icon {country}</p>
-                        <button className=''>View please</button>
-                       </div>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
 
