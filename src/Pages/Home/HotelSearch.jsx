@@ -13,7 +13,6 @@ import HotelInfos from './HotelInfos';
 const HotelSearch = () => {
 
 
-
   const { data: hotelNames, isLoading = [] } = useQuery({
     queryKey: ['hotelPlace'],
     queryFn: async () => {
