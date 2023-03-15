@@ -8,7 +8,14 @@ import SearchBar from '../SearchBar/SearchBar';
 
 const HotelListing = () => {
 
+  const [visible, setVisible] = useState(4);
 
+  const showMore = () => {
+    setVisible((preValue) => preValue + 2);
+  };
+const location = useLocation();
+const [hotelNames, setHotelNames] = useState([]);
+const [category, setCategory] = useState([]);
 const [brfFilter, setBrfFilter] = useState(false);
 const [frIntFilter, setFrIntFilter] = useState(false);
 // const [freeAirportShuttle, setFreeAirportShuttle] = useState(false);
@@ -18,69 +25,40 @@ const [frIntFilter, setFrIntFilter] = useState(false);
 
 console.log(brfFilter,frIntFilter);
 
-// const filter = (event) => {
-//     // event.preventDefault();
-//     // console.log(object);
-//     if (event.target.name === "breakFast") {
-//       setBrfFilter(event.target.checked);
-//     }
 
-//     if (event.target.name === "internet") {
-//       setFrIntFilter(event.target.checked);
-//     }
-
-//     console.log(event.target.checked);
-//   };
-
-
-// useEffect(() => {
-//   // let query = { IntFilter,dmsFilter};
-//   let breakFast, freeNet;
+useEffect(() => {
+  let breakFast, freeNet;
   
-//   if (brfFilter) {
-//     breakFast = "true";
-//   } else if (!brfFilter) {
-//     breakFast = "false";
-//   }
-//   if (frIntFilter) {
-//     freeNet = "true";
-//   } else if (!frIntFilter) {
-//     freeNet = "false";
-//   }
+  if (brfFilter) {
+    breakFast = "true";
+  } else if (!brfFilter) {
+    breakFast = "false";
+  }
+  if (frIntFilter) {
+    freeNet = "true";
+  } else if (!frIntFilter) {
+    freeNet = "false";
+  }
+  // if (freeAirportShuttle) {
+  //   freeAir = "true";
+  // } else if (!freeAirportShuttle) {
+  //   freeAir = "false";
+  // }
 
-//   fetch(`http://localhost:5000/category?freeBreakFast=${breakFast}&freeInternet=${freeNet}`)
-//     .then((res) => res.json())
-//     .then((data) => {
-//       setCategory(data);
-//       console.log(data);
-//     });
-// }, [brfFilter, frIntFilter]);
+  fetch(`http://localhost:5000/category/filter?brfFilter=${breakFast}&frIntFilter=${freeNet}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setHotelNames(data);
+      console.log(data);
+    });
+}, [brfFilter, frIntFilter]);
 
 
   // const { country,title,city,price,avgRating,cafe,photo  } = hotelName;
 
-  const location = useLocation();
-  const [hotelNames, setHotelNames] = useState([]);
-  const [category, setCategory] = useState(null);
-
   useEffect(() => {
-
-    let breakFast, freeNet;
-  
-    if (brfFilter) {
-      breakFast = "true";
-    } else if (!brfFilter) {
-      breakFast = "false";
-    }
-    if (frIntFilter) {
-      freeNet = "true";
-    } else if (!frIntFilter) {
-      freeNet = "false";
-    }
-
-
     if (location?.search) {
-        axios.get(`http://localhost:5000/category${location?.search}&freeBreakFast=${breakFast}&freeInternet=${freeNet}`)
+        axios.get(`http://localhost:5000/category${location?.search}`)
             .then(res => {
                 if (res.data) {
                   setHotelNames(res.data)
@@ -91,7 +69,7 @@ console.log(brfFilter,frIntFilter);
                 console.log(error)
             });
     }
-}, [location, hotelNames,brfFilter, frIntFilter]);
+}, [location]);
    
   return (
        <>
@@ -149,8 +127,8 @@ console.log(brfFilter,frIntFilter);
             />
             <span className="input-filter-text">Free internet</span> <br />
           </div>
-{/* 
-          <div>
+
+          {/* <div>
             <input
               type="checkbox"
               name="freeAirportShuttle"
@@ -160,13 +138,13 @@ console.log(brfFilter,frIntFilter);
               onClick={() => setFreeAirportShuttle(!freeAirportShuttle)}
             />
             <span className="input-filter-text">Free airport shuttle</span> <br />
-          </div>
+          </div> */}
 
                 <hr />
 
                 <h5 className='filter'>Amenities</h5>
 
-          <div>
+          {/* <div>
             <input
               type="checkbox"
               name="airConditioned"
@@ -222,7 +200,7 @@ console.log(brfFilter,frIntFilter);
               </div>
 
               <div className='d-flex justify-content-between mt-4'>
-             <p>Showing 4 of 257 places</p>
+             <p>Showing {hotelNames.length} of 16 places</p>
               <p>Sort by Recommended</p>
              </div>
 
@@ -231,7 +209,7 @@ console.log(brfFilter,frIntFilter);
 
 
                           {
-                            hotelNames.map(hotelName => <AllHotelListing
+                            hotelNames.slice(0,visible).map(hotelName => <AllHotelListing
                             key={hotelName._id}
                             hotelName={hotelName}
                             category={category}
@@ -240,6 +218,10 @@ console.log(brfFilter,frIntFilter);
                              {/* <SearchResult></SearchResult> */}
 
                   </div>
+                </div>
+
+                <div className="text-center mt-4" onClick={showMore}>
+                   <button className="btn btn-light ">show more</button>
                 </div>
 
              
