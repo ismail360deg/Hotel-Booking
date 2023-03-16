@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import '../../Styles/HotelListing.css';
 
 const SearchBar = () => {
 
     const cityRef = useRef('');
     const roomRef = useRef(0);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     
     const searchHandler = async () =>{
         const city = cityRef.current.value
@@ -24,8 +24,9 @@ const SearchBar = () => {
         if(!res.ok) alert('Something went wrong');
 
         const result = await res.json();
+        console.log(result)
 
-        navigate(`/category/search?city=${city}&room=${room}`,{state: result.data} );
+        // navigate(`/category/search?city=${city}&room=${room}`,{state: result.data} );
 
     };
     

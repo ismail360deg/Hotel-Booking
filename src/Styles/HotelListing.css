@@ -17,6 +17,15 @@
     margin-left: -22px;
 
 }
+.price__box{
+    padding: 12px;
+    width: 173px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #79747E;
+    border-radius: 4px;
+    outline: none;
+}
 .enter__destination{
     width: 344px;
     height: 56px;
@@ -33,6 +42,13 @@
     background: #8DD3BB;
     border-radius: 4px;
     padding: 10px;
+}
+.price__search{
+    font-size: 40px;
+    background: #8DD3BB;
+    border-radius: 4px;
+    padding: 10px;
+    margin-left: 20px;
 }
 
 /* =================================== */

@@ -1,18 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../../Styles/HotelListing.css';
 import { useLocation} from 'react-router-dom';
 import axios from 'axios';
 import AllHotelListing from './AllHotelListing';
-import SearchBar from '../SearchBar/SearchBar';
-// import hotelImg from '../../assets/images/hotel-img01.png';
-
+// import SearchBar from '../SearchBar/SearchBar';
+import { FaSearch } from 'react-icons/fa';
 const HotelListing = () => {
+
+  const priceRef = useRef(0);
+
+  const searchPrice = async () =>{
+    const price = priceRef.current.value
+
+    console.log(price)
+
+    if(price === ''){
+        return alert('All fields are required!')
+    }
+
+    const res = await fetch(`http://localhost:5000/category/search/getHotelBySearch?price=${price}`);
+
+    if(!res.ok) alert('Something went wrong');
+
+    const result = await res.json();
+    console.log(result.data)
+    setHotelNames(result.data)
+
+};
 
   const [visible, setVisible] = useState(4);
 
   const showMore = () => {
     setVisible((preValue) => preValue + 2);
   };
+
 const location = useLocation();
 const [hotelNames, setHotelNames] = useState([]);
 const [category, setCategory] = useState([]);
@@ -23,7 +44,6 @@ const [airConFilter, setAirConFilter] = useState(false);
 const [fitness, setFitness] = useState(false);
 const [pool, setPool] = useState(false);
 
-// console.log(brfFilter,frIntFilter);
 
 
 useEffect(() => {
@@ -53,26 +73,68 @@ useEffect(() => {
             });
     }
 }, [location]);
+
+
+
+const cityRef = useRef('');
+const roomRef = useRef(0);
+
+const searchHandler = async () =>{
+    const city = cityRef.current.value
+    const room = roomRef.current.value
+
+    console.log(city,room)
+
+    if(city === '' || room === ''){
+        // return alert('All fields are required!')
+    }
+
+    const res = await fetch(`http://localhost:5000/category/search/getHotelBySearch?city=${city}&room=${room}`);
+
+    if(!res.ok) alert('Something went wrong');
+
+    const result = await res.json();
+    console.log(result)
+    setHotelNames(result.data)
+
+    // navigate(`/category/search?city=${city}&room=${room}`,{state: result.data} );
+
+};
+
    
   return (
        <>
-       <SearchBar></SearchBar>
+<section className='container flying__input'>
+        <form>
+            <div className="col-12 d-flex align-items-center justify-content-evenly">
+
+                <div className='input-container'>
+                <input type="text" id="form3Example1m" className="enter__destination" placeholder="Enter Destination" ref={cityRef}/>
+                </div>
+                <div>
+                <input type="text" id="form3Example1m" className="input__box" placeholder="Check In"/>
+                </div>
+                <div>
+                <input type="text" id="form3Example1m" className="input__box" placeholder="Check Out "/>
+                </div>
+                <div>
+                <input type="number" id="form3Example1m" className="input__box" placeholder="Rooms & Guests" ref={roomRef}/>
+                </div>
+                <FaSearch className='search' type='submit' onClick={searchHandler}></FaSearch>
+            </div>
+        </form>
+        </section>
+       {/* <SearchBar></SearchBar> */}
 
         <section className='container mt-4'>
         <div className="row">
             <div className="col-4">
-              <h5 className='filter'>Filters</h5>
-              <div>
-              <select class="form-select" aria-label="Default select example">
-               
-              </select>
-              <input type="range" class="form-range" id="customRange1" />
-             <div className='d-flex justify-content-between'>
-             <p>$50</p>
-              <p>$1200</p>
-             </div>
-             <hr />
-              </div>
+              <h5 className='filter'>price</h5>
+
+             <form>
+             <input type="number" id="form3Example1m" className="price__box" placeholder="price" ref={priceRef}/>
+             <FaSearch className='price__search' type='submit' onClick={searchPrice} ></FaSearch>
+             </form>
 
             <h5 className='filter'>Rating</h5>
             <div className='d-flex justify-content-between'>
