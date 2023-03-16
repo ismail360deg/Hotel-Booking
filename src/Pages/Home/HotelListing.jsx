@@ -18,40 +18,23 @@ const [hotelNames, setHotelNames] = useState([]);
 const [category, setCategory] = useState([]);
 const [brfFilter, setBrfFilter] = useState(false);
 const [frIntFilter, setFrIntFilter] = useState(false);
-// const [freeAirportShuttle, setFreeAirportShuttle] = useState(false);
-// const [airConditioned, setAirConditioned] = useState(false);
-// const [fitness, setFitness] = useState(false);
-// const [pool, setPool] = useState(false);
+const [freeAirFilter, setFreeAirFilter] = useState(false);
+const [airConFilter, setAirConFilter] = useState(false);
+const [fitness, setFitness] = useState(false);
+const [pool, setPool] = useState(false);
 
-console.log(brfFilter,frIntFilter);
+// console.log(brfFilter,frIntFilter);
 
 
 useEffect(() => {
-  let breakFast, freeNet;
-  
-  if (brfFilter) {
-    breakFast = "true";
-  } else if (!brfFilter) {
-    breakFast = "false";
-  }
-  if (frIntFilter) {
-    freeNet = "true";
-  } else if (!frIntFilter) {
-    freeNet = "false";
-  }
-  // if (freeAirportShuttle) {
-  //   freeAir = "true";
-  // } else if (!freeAirportShuttle) {
-  //   freeAir = "false";
-  // }
-
-  fetch(`http://localhost:5000/category/filter?brfFilter=${breakFast}&frIntFilter=${freeNet}`)
+ 
+  fetch(`http://localhost:5000/category/filter/v2?brfFilter=${brfFilter || ""}&frIntFilter=${frIntFilter || ""}&freeAirFilter=${freeAirFilter || ""}&airConFilter=${airConFilter || ""}&fitness=${fitness || ""}&pool=${pool || ""}`)
     .then((res) => res.json())
     .then((data) => {
       setHotelNames(data);
       console.log(data);
     });
-}, [brfFilter, frIntFilter]);
+}, [brfFilter, frIntFilter,freeAirFilter,airConFilter,fitness, pool]);
 
 
   // const { country,title,city,price,avgRating,cafe,photo  } = hotelName;
@@ -111,7 +94,7 @@ useEffect(() => {
               id=""
               checked={brfFilter}
               // value="International"
-              onClick={() => setBrfFilter(!brfFilter)}
+              onClick={(e) => setBrfFilter(e.target.checked)}
             />
             <span className="input-filter-text">Free breakfast</span> <br />
           </div>
@@ -123,35 +106,35 @@ useEffect(() => {
               id=""
               checked={frIntFilter}
               // value="International"
-              onClick={() => setFrIntFilter(!frIntFilter)}
+              onClick={(e) => setFrIntFilter(e.target.checked)}
             />
             <span className="input-filter-text">Free internet</span> <br />
           </div>
 
-          {/* <div>
+          <div>
             <input
               type="checkbox"
               name="freeAirportShuttle"
               id=""
-              checked={freeAirportShuttle}
+              checked={freeAirFilter}
               // value="International"
-              onClick={() => setFreeAirportShuttle(!freeAirportShuttle)}
+              onClick={(e) => setFreeAirFilter(e.target.checked)}
             />
             <span className="input-filter-text">Free airport shuttle</span> <br />
-          </div> */}
+          </div>
 
                 <hr />
 
                 <h5 className='filter'>Amenities</h5>
 
-          {/* <div>
+          <div>
             <input
               type="checkbox"
               name="airConditioned"
               id=""
-              checked={airConditioned}
+              checked={airConFilter}
               // value="International"
-              onClick={() => setAirConditioned(!airConditioned)}
+              onClick={(e) => setAirConFilter(e.target.checked)}
             />
             <span className="input-filter-text">Air-conditioned</span> <br />
           </div>
@@ -163,7 +146,7 @@ useEffect(() => {
               id=""
               checked={fitness}
               // value="International"
-              onClick={() => setFitness(!fitness)}
+              onClick={(e) => setFitness(e.target.checked)}
             />
             <span className="input-filter-text">Fitness</span> <br />
           </div>
@@ -175,10 +158,10 @@ useEffect(() => {
               id=""
               checked={pool}
               // value="International"
-              onClick={() => setPool(!pool)}
+              onClick={(e) => setPool(e.target.checked)}
             />
             <span className="input-filter-text">Pool</span> <br />
-          </div> */}
+          </div>
 
             </div>
 

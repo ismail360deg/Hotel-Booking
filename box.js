@@ -1,150 +1,247 @@
-import React, {  useEffect, useState } from "react";
-import AddReviews from "../../Components/AddReviews/AddReviews";
-import DisplayPackage from "../DisplayPackage/DisplayPackage";
-import UserReviews from "../Home/UserReviews/UserReviews";
-// import { ApiContext } from "../../DataContext.js/DataContext";
-import "./Packages.css";
+import React, { useEffect, useState } from 'react';
+import '../../Styles/HotelListing.css';
+import { useLocation} from 'react-router-dom';
+import axios from 'axios';
+import AllHotelListing from './AllHotelListing';
+import SearchBar from '../SearchBar/SearchBar';
+// import hotelImg from '../../assets/images/hotel-img01.png';
 
-const Packages = () => {
-  // const { packages } = useContext(ApiContext);
-  // console.log(packages);
-  const [packages, setPackages] = useState([]);
-  const [IntFilter, setIntFilter] = useState(false);
-  const [dmsFilter, setdmsFilter] = useState(false);
-  const [visible, setVisible] = useState(6);
+const HotelListing = () => {
+
+  const [visible, setVisible] = useState(4);
 
   const showMore = () => {
-    setVisible((preValue) => preValue + 3);
+    setVisible((preValue) => preValue + 2);
   };
+const location = useLocation();
+const [hotelNames, setHotelNames] = useState([]);
+const [category, setCategory] = useState([]);
+const [brfFilter, setBrfFilter] = useState(false);
+const [frIntFilter, setFrIntFilter] = useState(false);
+// const [freeAirportShuttle, setFreeAirportShuttle] = useState(false);
+// const [airConditioned, setAirConditioned] = useState(false);
+// const [fitness, setFitness] = useState(false);
+// const [pool, setPool] = useState(false);
+
+console.log(brfFilter,frIntFilter);
+
+
+useEffect(() => {
+  let breakFast, freeNet;
+  
+  if (brfFilter) {
+    breakFast = "true";
+  } else if (!brfFilter) {
+    breakFast = "false";
+  }
+  if (frIntFilter) {
+    freeNet = "true";
+  } else if (!frIntFilter) {
+    freeNet = "false";
+  }
+  // if (freeAirportShuttle) {
+  //   freeAir = "true";
+  // } else if (!freeAirportShuttle) {
+  //   freeAir = "false";
+  // }
+
+  fetch(`http://localhost:5000/category/filter?brfFilter=${breakFast}&frIntFilter=${freeNet}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setHotelNames(data);
+      console.log(data);
+    });
+}, [brfFilter, frIntFilter]);
+
+
+  // const { country,title,city,price,avgRating,cafe,photo  } = hotelName;
 
   useEffect(() => {
-    // let query = { IntFilter,dmsFilter};
-    let Inter, domes;
-
-    if (IntFilter) {
-      Inter = "true";
-    } else if (!IntFilter) {
-      Inter = "false";
+    if (location?.search) {
+        axios.get(`http://localhost:5000/category${location?.search}`)
+            .then(res => {
+                if (res.data) {
+                  setHotelNames(res.data)
+                }
+                setCategory(res.data)
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
-    if (dmsFilter) {
-      domes = "true";
-    } else if (!dmsFilter) {
-      domes = "false";
-    }
-
-    fetch(`http://localhost:5000/packages?IntFilter=${Inter}&dmsFilter=${domes}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPackages(data);
-        console.log(data);
-      });
-  }, [IntFilter, dmsFilter]);
-
-  // const filter = (event) => {
-  //   // event.preventDefault();
-  //   // console.log(object);
-  //   if (event.target.name === "international") {
-  //     setIntFilter(event.target.checked);
-  //   }
-
-  //   if (event.target.name === "domestic") {
-  //     setdmsFilter(event.target.checked);
-  //   }
-
-  //   // console.log(event.target.checked);
-  // };
-
-  console.log(IntFilter, dmsFilter);
-
-  return (
-    <div>
-      <section className="package-section">
-        <div>
-          <h2>Let's go places together</h2>
-          <p>
-            Discover the latest offers and news and start planning your next
-            trip with us.
-          </p>
-        </div>
-      </section>
-      <section className="row container m-auto mt-5 mb-5">
-        <div className="checkbox-container mt-5 mb-5 pt-3 col-2">
-          <p className="text-primary-emphasis">Filters</p>
-          <hr className="text-dark" />
-          <div>
-            <input
-              type="checkbox"
-              name="international"
-              id=""
-              checked={IntFilter}
-              onClick={() => setIntFilter(!IntFilter)}
-            />
-            <span className="input-filter-text">International</span> <br />
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              name="domestic"
-              id=""
-              checked={dmsFilter}
-              onClick={() => setdmsFilter(!dmsFilter)}
-            />
-            <span className="input-filter-text" >Domestic</span> <br />
-          </div>
-        </div>
-
-        <div className="col-10">
-          <div className=" mt-5">
-            <span className="text-dark-emphasis fs-3">
-              See Your Favorite Packages Here
-            </span>{" "}
-            <span className="ms-3 text-warning packages-length ">
-              {packages.length} packages here{" "}
-            </span>
-          </div>
-          <hr />
-
-          <div>
-            {packages.slice(0, visible).map((pk) => (
-              <DisplayPackage pk={pk}></DisplayPackage>
-            ))}
-          </div>
-        </div>
-        <div className="text-center mt-4" onClick={showMore}>
-          <button className="btn btn-light ">show more</button>
-        </div>
-      </section>
-      <section>
-        <UserReviews></UserReviews>
-        <AddReviews></AddReviews>
-      </section>
-
+}, [location]);
    
-    </div>
-  );
-};
+  return (
+       <>
+       <SearchBar></SearchBar>
 
-export default Packages;
+        <section className='container mt-4'>
+        <div className="row">
+            <div className="col-4">
+              <h5 className='filter'>Filters</h5>
+              <div>
+              <select class="form-select" aria-label="Default select example">
+               
+              </select>
+              <input type="range" class="form-range" id="customRange1" />
+             <div className='d-flex justify-content-between'>
+             <p>$50</p>
+              <p>$1200</p>
+             </div>
+             <hr />
+              </div>
+
+            <h5 className='filter'>Rating</h5>
+            <div className='d-flex justify-content-between'>
+            <p>0+</p>
+            <p>1+</p>
+            <p>2+</p>
+            <p>3+</p>
+            <p>4+</p>
+            <p>5+</p>
+             </div>
+             <hr />
+
+             <h5 className='filter'>Freebies</h5>
+
+             <div>
+            <input
+              type="checkbox"
+              name="breakFast"
+              id=""
+              checked={brfFilter}
+              // value="International"
+              onClick={() => setBrfFilter(!brfFilter)}
+            />
+            <span className="input-filter-text">Free breakfast</span> <br />
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="internet"
+              id=""
+              checked={frIntFilter}
+              // value="International"
+              onClick={() => setFrIntFilter(!frIntFilter)}
+            />
+            <span className="input-filter-text">Free internet</span> <br />
+          </div>
+
+          {/* <div>
+            <input
+              type="checkbox"
+              name="freeAirportShuttle"
+              id=""
+              checked={freeAirportShuttle}
+              // value="International"
+              onClick={() => setFreeAirportShuttle(!freeAirportShuttle)}
+            />
+            <span className="input-filter-text">Free airport shuttle</span> <br />
+          </div> */}
+
+                <hr />
+
+                <h5 className='filter'>Amenities</h5>
+
+          {/* <div>
+            <input
+              type="checkbox"
+              name="airConditioned"
+              id=""
+              checked={airConditioned}
+              // value="International"
+              onClick={() => setAirConditioned(!airConditioned)}
+            />
+            <span className="input-filter-text">Air-conditioned</span> <br />
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="fitness"
+              id=""
+              checked={fitness}
+              // value="International"
+              onClick={() => setFitness(!fitness)}
+            />
+            <span className="input-filter-text">Fitness</span> <br />
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="pool"
+              id=""
+              checked={pool}
+              // value="International"
+              onClick={() => setPool(!pool)}
+            />
+            <span className="input-filter-text">Pool</span> <br />
+          </div> */}
+
+            </div>
+
+
+            <div className="col-8">
+              <div className='hotels d-flex justify-content-between'>
+                <div>
+                  <h6>Hotels</h6>
+                  <p>257 places</p>
+                </div>
+                <div>
+                  <h6>Hotels</h6>
+                  <p>257 places</p>
+                </div>
+                <div>
+                  <h6>Hotels</h6>
+                  <p>257 places</p>
+                </div>
+              </div>
+
+              <div className='d-flex justify-content-between mt-4'>
+             <p>Showing {hotelNames.length} of 16 places</p>
+              <p>Sort by Recommended</p>
+             </div>
+
+                <div class="card mb-3 mt-4" >
+                  <div class="row g-0">
+
+
+                          {
+                            hotelNames.slice(0,visible).map(hotelName => <AllHotelListing
+                            key={hotelName._id}
+                            hotelName={hotelName}
+                            category={category}
+                            ></AllHotelListing>)
+                          }
+                             {/* <SearchResult></SearchResult> */}
+
+                  </div>
+                </div>
+
+                <div className="text-center mt-4" onClick={showMore}>
+                   <button className="btn btn-light ">show more</button>
+                </div>
+
+             
+
+            </div>
 
 
 
-// app.get("/packages", async (req, res) => {
-//     let query = {};
-//     console.log(req.query.IntFilter, req.query.dmsFilter);
-//     if (req.query.IntFilter === "true" && req.query.dmsFilter === "false") {
-//       query = {
-//         tourCategory: "International",
-//       };
-//     }
-//     if (req.query.IntFilter=== "false" && req.query.dmsFilter === "true") {
-//       query = {
-//         tourCategory: "Domestic",
-//       };
-//     }
-//     const packages = await packagesCollection.find(query).toArray();
-//     res.send(packages);
-//     // console.log(tourGuide);
-//   });
 
-// EJn18hja7JxLPLOx
-// EJn18hja7JxLPLOx
+
+
+        </div>
+        </section>
+       </>
+
+         
+   
+   
+     
+  )
+}
+
+export default HotelListing
