@@ -5,7 +5,26 @@ import axios from 'axios';
 import AllHotelListing from './AllHotelListing';
 // import SearchBar from '../SearchBar/SearchBar';
 import { FaSearch } from 'react-icons/fa';
+// import { Col } from 'react-bootstrap';
 const HotelListing = () => {
+
+const location = useLocation();
+const [hotelNames, setHotelNames] = useState([]);
+const [category, setCategory] = useState([]);
+const [brfFilter, setBrfFilter] = useState(false);
+const [frIntFilter, setFrIntFilter] = useState(false);
+const [freeAirFilter, setFreeAirFilter] = useState(false);
+const [airConFilter, setAirConFilter] = useState(false);
+const [fitness, setFitness] = useState(false);
+const [pool, setPool] = useState(false);
+  
+  // const location = useLocation();
+
+  // const [data] = useState(location.state);
+
+  // console.log(data);
+
+  // const navigate = useNavigate();
 
   const priceRef = useRef(0);
 
@@ -33,16 +52,6 @@ const HotelListing = () => {
   const showMore = () => {
     setVisible((preValue) => preValue + 2);
   };
-
-const location = useLocation();
-const [hotelNames, setHotelNames] = useState([]);
-const [category, setCategory] = useState([]);
-const [brfFilter, setBrfFilter] = useState(false);
-const [frIntFilter, setFrIntFilter] = useState(false);
-const [freeAirFilter, setFreeAirFilter] = useState(false);
-const [airConFilter, setAirConFilter] = useState(false);
-const [fitness, setFitness] = useState(false);
-const [pool, setPool] = useState(false);
 
 
 
@@ -82,6 +91,7 @@ const roomRef = useRef(0);
 const searchHandler = async () =>{
     const city = cityRef.current.value
     const room = roomRef.current.value
+    
 
     console.log(city,room)
 
@@ -97,7 +107,7 @@ const searchHandler = async () =>{
     console.log(result)
     setHotelNames(result.data)
 
-    // navigate(`/category/search?city=${city}&room=${room}`,{state: result.data} );
+    // navigate(`/hotel-listing/search?city=${city}&room=${room}`,{state: result.data} );
 
 };
 
@@ -131,7 +141,7 @@ const searchHandler = async () =>{
             <div className="col-4">
               <h5 className='filter'>price</h5>
 
-             <form>
+             <form className='mt-2 mb-2'>
              <input type="number" id="form3Example1m" className="price__box" placeholder="price" ref={priceRef}/>
              <FaSearch className='price__search' type='submit' onClick={searchPrice} ></FaSearch>
              </form>
@@ -252,15 +262,45 @@ const searchHandler = async () =>{
                 <div class="card mb-3 mt-4" >
                   <div class="row g-0">
 
+                        {/* {
+                          hotelNames && hotelNames?(
+                            {
+                            hotelNames ?  hotelNames.slice(0,visible).map(hotelName => <AllHotelListing
+                              key={hotelName._id}
+                              hotelName={hotelName}
+                              category={category}
+                              ></AllHotelListing>)
+                            }
+                          )
+                        } */}
 
-                          {
+                          {/* {
                             hotelNames.slice(0,visible).map(hotelName => <AllHotelListing
                             key={hotelName._id}
                             hotelName={hotelName}
                             category={category}
                             ></AllHotelListing>)
-                          }
+                          } */}
                              {/* <SearchResult></SearchResult> */}
+
+                             <div class="card mb-3 mt-4" >
+                  <div class="row g-0">
+                 { hotelNames.length === 0 ? ( 
+                <h4 className='text-center'>No hotel found</h4>
+                ) : (
+                  hotelNames.slice(0,visible).map(hotelName => <AllHotelListing
+                    key={hotelName._id}
+                    hotelName={hotelName}
+                    category={category}
+                    ></AllHotelListing>)
+                  // data?.map(hotelName => (
+                  //   <Col lg='3' className='mb-4' key={hotelName.id}>
+                  //   <AllHotelListing hotelName={hotelName}></AllHotelListing>
+                  //   </Col>
+                  
+                )}
+                </div>
+                 </div>
 
                   </div>
                 </div>

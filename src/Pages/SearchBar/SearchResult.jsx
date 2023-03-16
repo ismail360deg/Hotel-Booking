@@ -165,6 +165,7 @@ const SearchResult = () => {
                 )}
                 </div>
       </div>
+      
     </section>
     </>
   )
