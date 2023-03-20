@@ -1,0 +1,22 @@
+[
+    {
+        "country": "Melbourne",
+        "photo": "https://i.ibb.co/54TbRzs/Rectangle-3-4.png",
+        "places": 200
+    },
+    {
+        "country": "Paris",
+        "photo": "https://i.ibb.co/ck4PHqD/Rectangle-4.png",
+        "places": 300
+    },
+    {
+        "country": "London",
+        "photo": "https://i.ibb.co/zx93DRy/Rectangle-5.png",
+        "places": 400
+    },
+    {
+        "country": "Columbia",
+        "photo": "https://i.ibb.co/PZHdN4G/Rectangle-6.png",
+        "places": 500
+    }
+]

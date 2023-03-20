@@ -7,3 +7,78 @@
     width: 302px;
     height: 271px;
 }
+.container span h5{
+    color: #FF8682;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+}
+span .arrow{
+    font-size: 20px;
+}
+span h6{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+}
+.main__title{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.star{
+    color: #FF8682;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.hotel__rating{
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.location{
+    margin-bottom: 0;
+}
+.book-button {
+    background: #8dd3bb;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #8dd3bb;
+    color: #112211;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .book-button:hover {
+    background: #8dd3bb;
+    border-radius: 4px;
+    border: 1px solid #8dd3bb;
+  }
+  .book__price{
+    color: #FF8682;
+    font-weight: 700;
+    font-size: 32px;
+  }
+  .book__details{
+    margin-top: -40px;
+    margin-bottom: 10px;
+    margin-right: 22px;
+  }
+  .overview{
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .description{
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .available__room{
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }

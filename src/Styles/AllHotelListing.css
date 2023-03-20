@@ -1,0 +1,59 @@
+
+.hotel_listing_card .card{
+  border-radius: 15px;
+}
+.package-name {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+    color: #112211;
+  }
+  .img-fluid {
+    border: none;
+    border-radius: 5px;
+  }
+  .package-price {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 29px;
+    text-align: right;
+    color: #ff8682;
+  }
+  .stay {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #112211;
+    /* opacity: 0.75; */
+  }
+  .package-details-button {
+    background: #8dd3bb;
+    border-radius: 4px;
+    border: 1px solid #8dd3bb;
+    color: #112211;
+  }
+  .package-details-button:hover {
+    background: #8dd3bb;
+    border-radius: 4px;
+    border: 1px solid #8dd3bb;
+  }
+  .price-dollar{
+    color: #FF8682 !important;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .star{
+    color: #FF8682;
+  }
+  
+  .title{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+  }

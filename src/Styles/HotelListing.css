@@ -51,6 +51,16 @@
     margin-left: 20px;
 }
 
+.showing{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.all__places{
+    color: #FF8682;
+}
+
 /* =================================== */
 .filter{
     font-weight: 600;
@@ -74,4 +84,12 @@
 }
 .starting h6{
     margin-left: 60px;
+}
+
+.show__more__results{
+    width: 840px;
+    height: 48px;
+    background: #112211;
+    border-radius: 4px;
+    color: #fff;
 }
