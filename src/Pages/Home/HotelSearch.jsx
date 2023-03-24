@@ -11,7 +11,9 @@ const HotelSearch = () => {
   const { data: hotelNames, isLoading = [] } = useQuery({
     queryKey: ["hotelPlace"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/hotelPlace");
+      const res = await fetch(
+        "https://hotel-flow-server.vercel.app/hotelPlace"
+      );
       const data = await res.json();
       return data;
     },

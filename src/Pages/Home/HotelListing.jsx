@@ -7,7 +7,7 @@ import AllHotelListing from "./AllHotelListing";
 import { FaSearch } from "react-icons/fa";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
+// import { DateRangePicker } from "react-date-range";
 // import { Col } from 'react-bootstrap';
 const HotelListing = () => {
   const location = useLocation();
@@ -40,7 +40,7 @@ const HotelListing = () => {
     }
 
     const res = await fetch(
-      `http://localhost:5000/category/search/getHotelBySearch?price=${price}`
+      `https://hotel-flow-server.vercel.app/category/search/getHotelBySearch?price=${price}`
     );
 
     if (!res.ok) alert("Something went wrong");
@@ -58,7 +58,7 @@ const HotelListing = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/category/filter/v2?brfFilter=${
+      `https://hotel-flow-server.vercel.app/category/filter/v2?brfFilter=${
         brfFilter || ""
       }&frIntFilter=${frIntFilter || ""}&freeAirFilter=${
         freeAirFilter || ""
@@ -78,7 +78,7 @@ const HotelListing = () => {
   useEffect(() => {
     if (location?.search) {
       axios
-        .get(`http://localhost:5000/category${location?.search}`)
+        .get(`https://hotel-flow-server.vercel.app/category${location?.search}`)
         .then((res) => {
           if (res.data) {
             setHotelNames(res.data);
@@ -105,7 +105,7 @@ const HotelListing = () => {
     }
 
     const res = await fetch(
-      `http://localhost:5000/category/search/getHotelBySearch?city=${city}&room=${room}`
+      `https://hotel-flow-server.vercel.app/category/search/getHotelBySearch?city=${city}&room=${room}`
     );
 
     if (!res.ok) alert("Something went wrong");
@@ -117,19 +117,19 @@ const HotelListing = () => {
     // navigate(`/hotel-listing/search?city=${city}&room=${room}`,{state: result.data} );
   };
 
-  const [startDate, setStarDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  // const [startDate, setStarDate] = useState(new Date());
+  // const [endDate, setEndDate] = useState(new Date());
 
-  const handleSelect = (date) => {
-    setStarDate(date.selection.startDate);
-    setEndDate(date.selection.endDate);
-  };
+  // const handleSelect = (date) => {
+  //   setStarDate(date.selection.startDate);
+  //   setEndDate(date.selection.endDate);
+  // };
 
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
-  };
+  // const selectionRange = {
+  //   startDate: startDate,
+  //   endDate: endDate,
+  //   key: "selection",
+  // };
 
   return (
     <>
@@ -146,10 +146,10 @@ const HotelListing = () => {
               />
             </div>
 
-            <DateRangePicker
+            {/* <DateRangePicker
               ranges={[selectionRange]}
               onChange={handleSelect}
-            />
+            /> */}
 
             {/* <div>
               <DatePicker

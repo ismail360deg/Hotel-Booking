@@ -1,0 +1,25 @@
+.sign-up-button {
+    border: 1px solid white;
+    border-radius: 7px;
+    color: #112211 !important;
+    background-color: #ffffff;
+  }
+  .sign-up-button:hover {
+  
+    color: #8dd3bb !important;
+   ;
+  }
+  .nav-link {
+    margin-left: 9px;
+    color: #000000;
+    font-weight: 600;
+    font-size: 14px;
+    padding-top: 5px;
+  }
+  .nav-link:hover {
+    color: #8dd3bb;
+  }
+  
+  /* .navbar-brand img{
+    color: #ffffff;
+  } */

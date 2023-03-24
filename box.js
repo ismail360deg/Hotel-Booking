@@ -45,7 +45,7 @@ useEffect(() => {
   //   freeAir = "false";
   // }
 
-  fetch(`http://localhost:5000/category/filter?brfFilter=${breakFast}&frIntFilter=${freeNet}`)
+  fetch(`https://hotel-flow-server.vercel.app/category/filter?brfFilter=${breakFast}&frIntFilter=${freeNet}`)
     .then((res) => res.json())
     .then((data) => {
       setHotelNames(data);
@@ -58,7 +58,7 @@ useEffect(() => {
 
   useEffect(() => {
     if (location?.search) {
-        axios.get(`http://localhost:5000/category${location?.search}`)
+        axios.get(`https://hotel-flow-server.vercel.app/category${location?.search}`)
             .then(res => {
                 if (res.data) {
                   setHotelNames(res.data)
