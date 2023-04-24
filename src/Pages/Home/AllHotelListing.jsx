@@ -55,14 +55,14 @@ const AllHotelListing = ({ hotelName, category }) => {
                   {avgRating} start reviews
                 </p>
               </div>
-              <div className="d-flex align-content-center justify-content-between">
+              {/* <div className="d-flex align-content-center justify-content-between">
                 <p className="mt-3">
                   <BsFillCupFill className="me-2" />
                   {cafe}+ Aminities
                   {createdAt}
                 </p>
-                {/* <h5 class="package-price">{pk.tourCategory}</h5> */}
-              </div>
+                <h5 class="package-price">{pk.tourCategory}</h5>
+              </div> */}
               <hr />
               {/* <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>

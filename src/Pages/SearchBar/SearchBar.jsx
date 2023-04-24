@@ -19,7 +19,7 @@ const SearchBar = () => {
     }
 
     const res = await fetch(
-      `https://hotel-flow-server.vercel.app/category/search/getHotelBySearch?city=${city}&room=${room}`
+      `http://localhost:5000/category/search/getHotelBySearch?city=${city}&room=${room}`
     );
 
     if (!res.ok) alert("Something went wrong");

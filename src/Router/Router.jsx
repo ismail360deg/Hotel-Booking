@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
         path: "/category/:id",
         element: <HotelDetails></HotelDetails>,
         loader: async ({ params }) =>
-          fetch(`https://hotel-flow-server.vercel.app/category/${params.id}`),
+          fetch(`http://localhost:5000/category/${params.id}`),
       },
       {
         path: "/category/search",

@@ -11,9 +11,7 @@ const HotelSearch = () => {
   const { data: hotelNames, isLoading = [] } = useQuery({
     queryKey: ["hotelPlace"],
     queryFn: async () => {
-      const res = await fetch(
-        "https://hotel-flow-server.vercel.app/hotelPlace"
-      );
+      const res = await fetch("http://localhost:5000/hotelPlace");
       const data = await res.json();
       return data;
     },
@@ -28,52 +26,6 @@ const HotelSearch = () => {
       <div className="banner">
         <img src={Banner} alt="" />
       </div>
-
-      {/* <div className="container flying">
-        <div className="row">
-          <h3 className="mb-4">Where are you flying</h3>
-          <div className="col-12 d-flex align-items-center justify-content-between">
-            <div className="input-container">
-              <input
-                type="text"
-                id="form3Example1m"
-                className="input destination"
-                placeholder="Enter Destination"
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                id="form3Example1m"
-                className="input"
-                placeholder="Check In"
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                id="form3Example1m"
-                className="input"
-                placeholder="Check Out"
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                id="form3Example1m"
-                className="input"
-                placeholder="Rooms"
-              />
-            </div>
-          </div>
-
-          <div className="d-flex mt-4 align-items-center justify-content-end">
-            <h6 className="promo__code">+ Add Promo code </h6>
-            <button className="show__btn">Show Places</button>
-          </div>
-        </div>
-      </div> */}
-
       {/* =======================Your recent searches==================== */}
       <div className="container">
         <h3 className="fw-bold text-dark mb-4">Your recent searches</h3>

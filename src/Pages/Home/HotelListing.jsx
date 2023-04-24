@@ -5,10 +5,10 @@ import axios from "axios";
 import AllHotelListing from "./AllHotelListing";
 // import SearchBar from '../SearchBar/SearchBar';
 import { FaSearch } from "react-icons/fa";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
-// import { DateRangePicker } from "react-date-range";
 // import { Col } from 'react-bootstrap';
+
+import "react-datepicker/dist/react-datepicker.css";
+
 const HotelListing = () => {
   const location = useLocation();
   const [hotelNames, setHotelNames] = useState([]);
@@ -40,7 +40,7 @@ const HotelListing = () => {
     }
 
     const res = await fetch(
-      `https://hotel-flow-server.vercel.app/category/search/getHotelBySearch?price=${price}`
+      `http://localhost:5000/category/search/getHotelBySearch?price=${price}`
     );
 
     if (!res.ok) alert("Something went wrong");
@@ -58,7 +58,7 @@ const HotelListing = () => {
 
   useEffect(() => {
     fetch(
-      `https://hotel-flow-server.vercel.app/category/filter/v2?brfFilter=${
+      `http://localhost:5000/category/filter/v2?brfFilter=${
         brfFilter || ""
       }&frIntFilter=${frIntFilter || ""}&freeAirFilter=${
         freeAirFilter || ""
@@ -78,7 +78,7 @@ const HotelListing = () => {
   useEffect(() => {
     if (location?.search) {
       axios
-        .get(`https://hotel-flow-server.vercel.app/category${location?.search}`)
+        .get(`http://localhost:5000/category${location?.search}`)
         .then((res) => {
           if (res.data) {
             setHotelNames(res.data);
@@ -93,19 +93,25 @@ const HotelListing = () => {
 
   const cityRef = useRef("");
   const roomRef = useRef(0);
+  const checkInRef = useRef("");
+  const checkOutRef = useRef("");
 
   const searchHandler = async () => {
     const city = cityRef.current.value;
     const room = roomRef.current.value;
+    const checkIn = checkInRef.current.value;
+    const checkOut = checkOutRef.current.value;
+
+    console.log(checkIn, checkOut);
 
     console.log(city, room);
 
-    if (city === "" || room === "") {
+    if (city === "" || room === "" || checkIn === "" || checkOut === "") {
       // return alert('All fields are required!')
     }
 
     const res = await fetch(
-      `https://hotel-flow-server.vercel.app/category/search/getHotelBySearch?city=${city}&room=${room}`
+      `http://localhost:5000/category/search/getHotelBySearch?city=${city}&room=${room}&checkIn=${checkIn}&checkOut=${checkOut}`
     );
 
     if (!res.ok) alert("Something went wrong");
@@ -116,20 +122,6 @@ const HotelListing = () => {
 
     // navigate(`/hotel-listing/search?city=${city}&room=${room}`,{state: result.data} );
   };
-
-  // const [startDate, setStarDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
-
-  // const handleSelect = (date) => {
-  //   setStarDate(date.selection.startDate);
-  //   setEndDate(date.selection.endDate);
-  // };
-
-  // const selectionRange = {
-  //   startDate: startDate,
-  //   endDate: endDate,
-  //   key: "selection",
-  // };
 
   return (
     <>
@@ -146,37 +138,32 @@ const HotelListing = () => {
               />
             </div>
 
-            {/* <DateRangePicker
-              ranges={[selectionRange]}
-              onChange={handleSelect}
-            /> */}
-
-            {/* <div>
-              <DatePicker
-                className="input__box"
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                dateFormat="dd/MM/yyyy"
-                minDate={new Date()}
-                placeholder="Check Out "
-              />
-            </div> */}
-            {/* <div>
+            <div className="input-container">
               <input
-                type="text"
-                id="form3Example1m"
-                className="input__box"
-                placeholder="Check In"
+                type="date"
+                id="date"
+                className="input"
+                placeholder=" "
+                name="date"
+                required
+                ref={checkInRef}
               />
+              <label className="label">select date</label>
             </div>
-            <div>
+
+            <div className="input-container">
               <input
-                type="text"
-                id="form3Example1m"
-                className="input__box"
-                placeholder="Check Out "
+                type="date"
+                id="date"
+                className="input"
+                placeholder=" "
+                name="date"
+                required
+                ref={checkOutRef}
               />
-            </div> */}
+              <label className="label">select date</label>
+            </div>
+
             <div>
               <input
                 type="number"
